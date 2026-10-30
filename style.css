@@ -1,0 +1,332 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at 50% 30%, #0d1511 0%, #050807 80%, #000000 100%);
+  color: #f1f5f9;
+  padding: 1.5rem;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Rejilla de ambiente estilo Matrix */
+.matrix-grid {
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0, 255, 102, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 102, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  background: rgba(10, 16, 13, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 255, 102, 0.15);
+  border-radius: 28px;
+  padding: 3rem 2.25rem;
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 
+    0 25px 60px -15px rgba(0, 0, 0, 0.8),
+    0 0 40px -10px rgba(0, 255, 102, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+/* Encabezado */
+.morpheus-badge {
+  display: inline-block;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: #00ff66;
+  text-shadow: 0 0 8px rgba(0, 255, 102, 0.6);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.header .title {
+  font-size: 2.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 40%, #a7f3d0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.65rem;
+}
+
+.header .subtitle {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* Escenario de las pastillas */
+.pills-stage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 1rem 0;
+}
+
+.pill-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* Diseño 3D de la pastilla */
+.pill-btn {
+  position: relative;
+  width: 130px;
+  height: 54px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.35s ease,
+              filter 0.35s ease,
+              opacity 0.3s ease;
+}
+
+/* Brillo superior tipo reflejo de cápsula */
+.pill-highlight {
+  position: absolute;
+  top: 4px;
+  left: 14px;
+  right: 14px;
+  height: 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+/* Reflejo inferior sutil para volumen 3D */
+.pill-core {
+  position: absolute;
+  bottom: 4px;
+  left: 20px;
+  right: 20px;
+  height: 8px;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.25) 0%, transparent 100%);
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+/* Pastilla Roja (inclinada hacia la izquierda como en la mano de Morfeo) */
+.pill-red {
+  background: linear-gradient(180deg, #ff4d4d 0%, #dc2626 45%, #991b1b 80%, #5f1010 100%);
+  transform: rotate(-22deg);
+  box-shadow: 
+    0 16px 28px -6px rgba(220, 38, 38, 0.5),
+    0 6px 12px rgba(0, 0, 0, 0.6),
+    inset 0 2px 4px rgba(255, 255, 255, 0.6),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.5);
+}
+
+.pill-red:hover:not(:disabled) {
+  transform: rotate(-22deg) translateY(-8px) scale(1.08);
+  box-shadow: 
+    0 22px 35px -6px rgba(239, 68, 68, 0.75),
+    0 0 25px rgba(239, 68, 68, 0.6),
+    inset 0 2px 4px rgba(255, 255, 255, 0.7);
+  filter: brightness(1.1);
+}
+
+.pill-red:active:not(:disabled) {
+  transform: rotate(-22deg) translateY(-2px) scale(0.98);
+}
+
+/* Pastilla Azul (inclinada hacia la derecha) */
+.pill-blue {
+  background: linear-gradient(180deg, #60a5fa 0%, #2563eb 45%, #1d4ed8 80%, #172554 100%);
+  transform: rotate(22deg);
+  box-shadow: 
+    0 16px 28px -6px rgba(37, 99, 235, 0.5),
+    0 6px 12px rgba(0, 0, 0, 0.6),
+    inset 0 2px 4px rgba(255, 255, 255, 0.6),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.5);
+}
+
+.pill-blue:hover:not(:disabled) {
+  transform: rotate(22deg) translateY(-8px) scale(1.08);
+  box-shadow: 
+    0 22px 35px -6px rgba(59, 130, 246, 0.75),
+    0 0 25px rgba(59, 130, 246, 0.6),
+    inset 0 2px 4px rgba(255, 255, 255, 0.7);
+  filter: brightness(1.1);
+}
+
+.pill-blue:active:not(:disabled) {
+  transform: rotate(22deg) translateY(-2px) scale(0.98);
+}
+
+/* Rótulos bajo las pastillas */
+.pill-caption {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.caption-red {
+  color: #fca5a5;
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+}
+
+.caption-blue {
+  color: #93c5fd;
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+}
+
+/* Estados de victoria / derrota al revelar */
+.pill-btn:disabled {
+  cursor: not-allowed;
+}
+
+.pill-btn.is-winner {
+  opacity: 1 !important;
+  box-shadow: 
+    0 0 0 4px #00ff66,
+    0 0 35px rgba(0, 255, 102, 0.7) !important;
+}
+
+.pill-btn.is-loser {
+  opacity: 0.3 !important;
+  filter: grayscale(80%) brightness(0.6) !important;
+}
+
+/* Sección de resultados */
+.result-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.15rem;
+  animation: matrixReveal 0.4s ease-out forwards;
+}
+
+.result-section.hidden {
+  display: none;
+}
+
+.result-message {
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  padding: 1rem 1.75rem;
+  border-radius: 16px;
+  width: 100%;
+}
+
+.result-message.win {
+  color: #00ff66;
+  background: rgba(0, 255, 102, 0.12);
+  border: 1px solid rgba(0, 255, 102, 0.4);
+  box-shadow: 0 0 30px rgba(0, 255, 102, 0.25);
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.result-message.lose {
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.25);
+}
+
+.result-detail {
+  font-size: 0.95rem;
+  color: #cbd5e1;
+  line-height: 1.4;
+  margin-top: -0.25rem;
+}
+
+/* Botón de volver a jugar */
+.btn-reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #0f1c16;
+  color: #00ff66;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.9rem 2rem;
+  border: 1px solid rgba(0, 255, 102, 0.35);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  width: 100%;
+  text-transform: uppercase;
+}
+
+.btn-reset:hover {
+  background: rgba(0, 255, 102, 0.15);
+  border-color: #00ff66;
+  box-shadow: 0 0 20px rgba(0, 255, 102, 0.35);
+  transform: translateY(-2px);
+}
+
+.btn-reset:active {
+  transform: translateY(0);
+}
+
+@keyframes matrixReveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 2.25rem 1.25rem;
+    gap: 1.75rem;
+  }
+  
+  .header .title {
+    font-size: 1.85rem;
+  }
+
+  .pills-stage {
+    gap: 1.25rem;
+  }
+
+  .pill-btn {
+    width: 105px;
+    height: 46px;
+  }
+
+  .pill-caption {
+    font-size: 0.8rem;
+  }
+}

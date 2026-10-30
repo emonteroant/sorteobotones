@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elige la pastilla - Matrix</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Fondo Matrix con rejilla y brillo sutil -->
+  <div class="matrix-grid" aria-hidden="true"></div>
+
+  <main class="card">
+    <header class="header">
+      <span class="morpheus-badge">MORFEO DICE</span>
+      <h1 class="title">Elige la pastilla</h1>
+      <p class="subtitle">«Esta es tu última oportunidad. Después de esto, no hay vuelta atrás.»</p>
+    </header>
+
+    <div class="pills-stage" id="choicesContainer">
+      <!-- Pastilla Roja -->
+      <div class="pill-container">
+        <button id="redBtn" class="pill-btn pill-red" type="button" aria-label="Elegir pastilla roja">
+          <span class="pill-highlight"></span>
+          <span class="pill-core"></span>
+        </button>
+        <span class="pill-caption caption-red">Pastilla Roja</span>
+      </div>
+
+      <!-- Pastilla Azul -->
+      <div class="pill-container">
+        <button id="blueBtn" class="pill-btn pill-blue" type="button" aria-label="Elegir pastilla azul">
+          <span class="pill-highlight"></span>
+          <span class="pill-core"></span>
+        </button>
+        <span class="pill-caption caption-blue">Pastilla Azul</span>
+      </div>
+    </div>
+
+    <section id="resultSection" class="result-section hidden" aria-live="polite">
+      <div id="resultMessage" class="result-message"></div>
+      <p id="resultDetail" class="result-detail"></p>
+      <button id="resetBtn" class="btn-reset" type="button">
+        Volver a jugar
+      </button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
