@@ -8,31 +8,18 @@ const resetBtn = document.getElementById('resetBtn');
 
 // Estado de la partida
 let winningButton = null;
-let lastWinningButton = null;
-let consecutiveWinsForSame = 0;
 
 /**
- * Prepara una nueva partida seleccionando aleatoriamente qué botón será el ganador.
- * Incluye protección contra rachas para asegurar variedad y que no gane siempre el mismo.
+ * Prepara una nueva partida seleccionando aleatoriamente qué pastilla será la ganadora.
+ * Es un sorteo 100% aleatorio e independiente en cada partida (sin memoria ni patrones).
  */
 function setupNewGame() {
-  // Selección aleatoria base (50% rojo, 50% azul)
-  let newWinner = Math.random() < 0.5 ? 'red' : 'blue';
+  // Generación aleatoria pura e independiente (50% probabilidad para cada pastilla)
+  const isRed = (window.crypto && window.crypto.getRandomValues)
+    ? (window.crypto.getRandomValues(new Uint32Array(1))[0] % 2 === 0)
+    : (Math.random() < 0.5);
 
-  // Si coincide con la partida anterior, contamos la racha
-  if (newWinner === lastWinningButton) {
-    consecutiveWinsForSame++;
-    // Si ha salido el mismo 2 veces seguidas, forzamos que cambie para evitar repeticiones excesivas
-    if (consecutiveWinsForSame >= 2) {
-      newWinner = (newWinner === 'red') ? 'blue' : 'red';
-      consecutiveWinsForSame = 1;
-    }
-  } else {
-    consecutiveWinsForSame = 1;
-  }
-
-  winningButton = newWinner;
-  lastWinningButton = newWinner;
+  winningButton = isRed ? 'red' : 'blue';
 }
 
 /**
